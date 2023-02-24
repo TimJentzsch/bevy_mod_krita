@@ -2,6 +2,18 @@
 name = "bevy_mod_krita"
 version = "0.1.0"
 edition = "2021"
+authors = ["Tim Jentzsch"]
+description = "Use Krita's .kra files directly in your Bevy app."
+readme = "README.md"
+repository = "https://github.com/TimJentzsch/bevy_mod_krita"
+license = "MIT OR Apache-2.0"
+keywords = ["gamedev", "bevy"]
+categories = [
+  "game-development",
+  "multimedia::images",
+  "rendering::data-formats",
+]
+exclude = ["assets/**/*", ".github/**/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -17,3 +29,6 @@ zip = { version = "0.6.4", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
 bevy = "0.9.1"
+
+[profile.dev]
+opt-level = 3

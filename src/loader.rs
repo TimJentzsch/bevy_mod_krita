@@ -1,6 +1,7 @@
 use std::io::{Cursor, Read};
 
 use bevy_asset::{AssetLoader, LoadedAsset};
+use bevy_ecs::world::{FromWorld, World};
 use bevy_render::texture::{CompressedImageFormats, Image, ImageType};
 use zip::ZipArchive;
 
@@ -42,5 +43,11 @@ impl AssetLoader for KritaDocumentLoader {
             load_context.set_default_asset(LoadedAsset::new(dyn_img));
             Ok(())
         })
+    }
+}
+
+impl FromWorld for KritaDocumentLoader {
+    fn from_world(_world: &mut World) -> Self {
+        Self
     }
 }

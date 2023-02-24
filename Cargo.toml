@@ -13,4 +13,7 @@ bevy_asset = { version = "0.9.1", default-features = false }
 bevy_ecs = { version = "0.9.1", default-features = false }
 image = { version = "0.24", default-features = false }
 thiserror = "1.0.38"
-zip = { version = "0.6.4", default-features = false }
+zip = { version = "0.6.4", default-features = false, features = ["deflate"] }
+
+[dev-dependencies]
+bevy = "0.9.1"

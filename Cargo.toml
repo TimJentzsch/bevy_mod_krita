@@ -7,10 +7,10 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.69"
+bevy_render = { version = "0.9.1", default-features = false }
 bevy_app = { version = "0.9.1", default-features = false }
-bevy_asset = "0.9.1"
-bevy_ecs = "0.9.1"
-bevy_render = "0.9.1"
+bevy_asset = { version = "0.9.1", default-features = false }
+bevy_ecs = { version = "0.9.1", default-features = false }
 image = { version = "0.24", default-features = false }
 thiserror = "1.0.38"
-zip = "0.6.4"
+zip = { version = "0.6.4", default-features = false }

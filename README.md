@@ -1,4 +1,4 @@
-# bevy_mod_krita
+# bevy_mod_krita [![Crates.io version](https://img.shields.io/crates/v/bevy_mod_krita)](https://crates.io/crates/bevy_mod_krita) [![Crates.io license](https://img.shields.io/crates/l/bevy_mod_krita)](LICENSE-MIT)
 
 Load Krita's `.kra` documents directly in Bevy for rapid prototyping or game jams.
 

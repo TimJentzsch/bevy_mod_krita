@@ -27,7 +27,7 @@ jobs:
       - name: Install alsa and udev
         run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
       - name: Run cargo clippy
-        run: cargo clippy --workspace
+        run: cargo clippy --workspace --all-features
 
   cargo-test:
     runs-on: ubuntu-latest
@@ -42,22 +42,7 @@ jobs:
       - name: Install alsa and udev
         run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
       - name: Run cargo test
-        run: cargo test
-
-  cargo-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-      - name: Cache Cargo build files
-        uses: Leafwing-Studios/cargo-cache@v1
-      - name: Install alsa and udev
-        run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
-      - name: Run cargo check
-        run: cargo check
+        run: cargo test --workspace --all-features
 
   cargo-doc:
     runs-on: ubuntu-latest
@@ -74,4 +59,4 @@ jobs:
       - name: Run cargo doc
         run: cargo doc --workspace --all-features --no-deps --document-private-items
       - name: Run cargo test --doc
-        run: cargo test --doc
+        run: cargo test --doc --workspace --all-features

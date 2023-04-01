@@ -19,16 +19,21 @@ exclude = ["assets/**/*", ".github/**/*"]
 
 [dependencies]
 anyhow = "1.0.69"
-bevy_render = { version = "0.9.1", default-features = false }
-bevy_app = { version = "0.9.1", default-features = false }
-bevy_asset = { version = "0.9.1", default-features = false }
-bevy_ecs = { version = "0.9.1", default-features = false }
+bevy_render = { version = "0.10", default-features = false }
+bevy_app = { version = "0.10", default-features = false }
+bevy_asset = { version = "0.10", default-features = false }
+bevy_ecs = { version = "0.10", default-features = false }
 image = { version = "0.24", default-features = false }
 thiserror = "1.0.38"
 zip = { version = "0.6.4", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
-bevy = "0.9.1"
+bevy = { version = "0.10", default-features = false, features = [
+  "bevy_asset",
+  "bevy_core_pipeline",
+  "bevy_render",
+  "bevy_sprite",
+] }
 
 [profile.dev]
 opt-level = 3

@@ -28,7 +28,12 @@ thiserror = "1.0.38"
 zip = { version = "0.6.4", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
-bevy = "0.10"
+bevy = { version = "0.10", default-features = false, features = [
+  "bevy_asset",
+  "bevy_core_pipeline",
+  "bevy_render",
+  "bevy_sprite",
+] }
 
 [profile.dev]
 opt-level = 3

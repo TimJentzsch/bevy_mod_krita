@@ -31,9 +31,22 @@ zip = { version = "0.6.4", default-features = false, features = ["deflate"] }
 bevy = { version = "0.10", default-features = false, features = [
   "bevy_asset",
   "bevy_core_pipeline",
+  "bevy_pbr",
   "bevy_render",
   "bevy_sprite",
+  "bevy_winit",
+  "png",
+  "filesystem_watcher",
+  "x11",
 ] }
 
 [profile.dev]
 opt-level = 3
+
+[[example]]
+name = "sprite"
+path = "examples/sprite.rs"
+
+[[example]]
+name = "texture"
+path = "examples/texture.rs"

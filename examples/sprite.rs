@@ -8,7 +8,7 @@ fn main() {
         .add_plugins(DefaultPlugins.set(AssetPlugin {
             // Enable hot reloading
             watch_for_changes: true,
-            ..Default::default()
+            ..default()
         }))
         // Add the Krita plugin to enable loading of `.kra` files
         .add_plugin(KritaPlugin)

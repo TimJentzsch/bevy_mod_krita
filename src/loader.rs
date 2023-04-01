@@ -5,6 +5,7 @@ use bevy_ecs::world::{FromWorld, World};
 use bevy_render::texture::{CompressedImageFormats, Image, ImageType};
 use zip::ZipArchive;
 
+/// An asset loader to load Krita's `.kra` files.
 #[derive(Debug, Clone)]
 pub struct KritaDocumentLoader;
 

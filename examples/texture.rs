@@ -1,4 +1,7 @@
+use std::time::Duration;
+
 use bevy::prelude::*;
+use bevy_asset::ChangeWatcher;
 use bevy_mod_krita::KritaPlugin;
 
 #[derive(Component)]
@@ -8,12 +11,12 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(AssetPlugin {
             // Enable hot reloading
-            watch_for_changes: true,
+            watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
             ..default()
         }))
-        .add_plugin(KritaPlugin)
-        .add_startup_system(setup)
-        .add_system(rotate_cube)
+        .add_plugins(KritaPlugin)
+        .add_systems(Startup, setup)
+        .add_systems(Update, rotate_cube)
         .run();
 }
 

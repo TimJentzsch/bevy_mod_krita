@@ -4,6 +4,13 @@ Load Krita's `.kra` documents directly in Bevy for rapid prototyping or game jam
 
 Please keep in mind that `.kra` files are not optimized for size, so you should probably not use them for production bundles.
 
+## Bevy Compatibility
+
+| `bevy` version | `bevy_mod_krita` version |
+| -------------- | ------------------------ |
+| `0.11`         | `0.2.0`                  |
+| `0.10`         | `0.1.0`                  |
+
 ## Installation
 
 ```cli

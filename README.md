@@ -4,6 +4,13 @@ Load Krita's `.kra` documents directly in Bevy for rapid prototyping or game jam
 
 Please keep in mind that `.kra` files are not optimized for size, so you should probably not use them for production bundles.
 
+## Bevy Compatibility
+
+| `bevy` version | `bevy_mod_krita` version |
+| -------------- | ------------------------ |
+| `0.11`         | `0.2.0`                  |
+| `0.10`         | `0.1.0`                  |
+
 ## Installation
 
 ```cli
@@ -15,26 +22,28 @@ cargo add bevy_mod_krita
 Simply add the `KritaPlugin` to your app, enable hot reloading (optional) and load `.kra` files!
 
 ```rs
+use std::time::Duration;
 use bevy::prelude::*;
+use bevy_asset::ChangeWatcher;
 use bevy_mod_krita::KritaPlugin;
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(AssetPlugin {
-            // Enable hot reloading (optional)
-            watch_for_changes: true,
+            // Enable hot reloading
+            watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
             ..default()
         }))
         // Add the Krita plugin to enable loading of `.kra` files
-        .add_plugin(KritaPlugin)
-        .add_startup_system(setup)
+        .add_plugins(KritaPlugin)
+        .add_systems(Startup, setup)
         .run();
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2dBundle::default());
     commands.spawn(SpriteBundle {
-        // Load a `.kra` file
+        // Load Krita file
         texture: asset_server.load("krita/demo.kra"),
         ..default()
     });

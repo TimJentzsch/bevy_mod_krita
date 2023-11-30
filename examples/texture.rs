@@ -59,6 +59,6 @@ fn rotate_cube(mut query: Query<&mut Transform, With<Cube>>, time: Res<Time>) {
     let rotation = Quat::from_axis_angle(rot_axis.normalize(), 1. * delta);
 
     for mut transform in query.iter_mut() {
-        transform.rotate(rotation.clone())
+        transform.rotate(rotation)
     }
 }

@@ -15,6 +15,7 @@ fn main() {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2dBundle::default());
     commands.spawn(SpriteBundle {
+        // Load a Krita document as a texture
         texture: asset_server.load("krita/demo.kra"),
         ..default()
     });

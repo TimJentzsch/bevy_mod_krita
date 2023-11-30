@@ -1,7 +1,4 @@
-use std::time::Duration;
-
 use bevy::prelude::*;
-use bevy_asset::ChangeWatcher;
 use bevy_mod_krita::KritaPlugin;
 
 #[derive(Component)]

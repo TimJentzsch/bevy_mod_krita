@@ -1,9 +1,6 @@
 //! Displays a single [`Sprite`], created from a Krita document.
 
-use std::time::Duration;
-
 use bevy::prelude::*;
-use bevy_asset::ChangeWatcher;
 use bevy_mod_krita::KritaPlugin;
 
 fn main() {

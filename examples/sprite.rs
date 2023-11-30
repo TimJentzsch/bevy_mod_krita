@@ -8,11 +8,7 @@ use bevy_mod_krita::KritaPlugin;
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins.set(AssetPlugin {
-            // Enable hot reloading
-            watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
-            ..default()
-        }))
+        .add_plugins(DefaultPlugins)
         // Add the Krita plugin to enable loading of `.kra` files
         .add_plugins(KritaPlugin)
         .add_systems(Startup, setup)

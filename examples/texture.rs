@@ -9,11 +9,7 @@ struct Cube;
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins.set(AssetPlugin {
-            // Enable hot reloading
-            watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
-            ..default()
-        }))
+        .add_plugins(DefaultPlugins)
         .add_plugins(KritaPlugin)
         .add_systems(Startup, setup)
         .add_systems(Update, rotate_cube)

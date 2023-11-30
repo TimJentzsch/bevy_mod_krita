@@ -22,7 +22,7 @@ impl AssetLoader for KritaDocumentLoader {
         &'a self,
         reader: &'a mut Reader,
         _settings: &'a Self::Settings,
-        load_context: &'a mut LoadContext,
+        _load_context: &'a mut LoadContext,
     ) -> bevy_asset::BoxedFuture<'a, Result<Self::Asset, Self::Error>> {
         Box::pin(async move {
             // TODO: Improve error handling
@@ -42,7 +42,7 @@ impl AssetLoader for KritaDocumentLoader {
             merged_image.read_to_end(&mut image_bytes)?;
 
             Ok(Image::from_buffer(
-                &bytes,
+                &image_bytes,
                 ImageType::Extension("png"),
                 // TODO: Check what to put here
                 CompressedImageFormats::all(),

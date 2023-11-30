@@ -1,7 +1,4 @@
-use std::time::Duration;
-
 use bevy::prelude::*;
-use bevy_asset::ChangeWatcher;
 use bevy_mod_krita::KritaPlugin;
 
 #[derive(Component)]
@@ -9,11 +6,7 @@ struct Cube;
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins.set(AssetPlugin {
-            // Enable hot reloading
-            watch_for_changes: ChangeWatcher::with_delay(Duration::from_millis(200)),
-            ..default()
-        }))
+        .add_plugins(DefaultPlugins)
         .add_plugins(KritaPlugin)
         .add_systems(Startup, setup)
         .add_systems(Update, rotate_cube)
@@ -66,6 +59,6 @@ fn rotate_cube(mut query: Query<&mut Transform, With<Cube>>, time: Res<Time>) {
     let rotation = Quat::from_axis_angle(rot_axis.normalize(), 1. * delta);
 
     for mut transform in query.iter_mut() {
-        transform.rotate(rotation.clone())
+        transform.rotate(rotation)
     }
 }

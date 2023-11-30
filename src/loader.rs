@@ -1,8 +1,8 @@
 use std::io::{Cursor, Read};
 
-use bevy_asset::{AssetLoader, LoadedAsset};
+use bevy_asset::{io::Reader, AssetLoader, AsyncReadExt, LoadContext};
 use bevy_ecs::world::{FromWorld, World};
-use bevy_render::texture::{CompressedImageFormats, Image, ImageType};
+use bevy_render::texture::{CompressedImageFormats, Image, ImageSampler, ImageType};
 use zip::ZipArchive;
 
 /// An asset loader to load Krita's `.kra` files.
@@ -10,17 +10,25 @@ use zip::ZipArchive;
 pub struct KritaDocumentLoader;
 
 impl AssetLoader for KritaDocumentLoader {
+    type Asset = Image;
+    type Settings = ();
+    type Error = anyhow::Error;
+
     fn extensions(&self) -> &[&str] {
         &["kra"]
     }
 
     fn load<'a>(
         &'a self,
-        bytes: &'a [u8],
-        load_context: &'a mut bevy_asset::LoadContext,
-    ) -> bevy_asset::BoxedFuture<'a, anyhow::Result<(), anyhow::Error>> {
+        reader: &'a mut Reader,
+        _settings: &'a Self::Settings,
+        _load_context: &'a mut LoadContext,
+    ) -> bevy_asset::BoxedFuture<'a, Result<Self::Asset, Self::Error>> {
         Box::pin(async move {
             // TODO: Improve error handling
+
+            let mut bytes = Vec::new();
+            reader.read_to_end(&mut bytes).await?;
 
             // `.kra` files are basically just `.zip` files, try to read the ZIP archive
             let reader = Cursor::new(bytes);
@@ -33,16 +41,15 @@ impl AssetLoader for KritaDocumentLoader {
             let mut image_bytes = Vec::<u8>::new();
             merged_image.read_to_end(&mut image_bytes)?;
 
-            let dyn_img = Image::from_buffer(
+            Ok(Image::from_buffer(
                 &image_bytes,
                 ImageType::Extension("png"),
-                // FIXME: Figure out what this does
-                CompressedImageFormats::empty(),
+                // TODO: Check what to put here
+                CompressedImageFormats::all(),
+                // TODO: Check if it's srgb
                 true,
-            )?;
-
-            load_context.set_default_asset(LoadedAsset::new(dyn_img));
-            Ok(())
+                ImageSampler::Default,
+            )?)
         })
     }
 }

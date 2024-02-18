@@ -2,7 +2,10 @@ use std::io::{Cursor, Read};
 
 use bevy_asset::{io::Reader, AssetLoader, AsyncReadExt, LoadContext};
 use bevy_ecs::world::{FromWorld, World};
-use bevy_render::texture::{CompressedImageFormats, Image, ImageSampler, ImageType};
+use bevy_render::{
+    render_asset::RenderAssetUsages,
+    texture::{CompressedImageFormats, Image, ImageSampler, ImageType},
+};
 use zip::ZipArchive;
 
 /// An asset loader to load Krita's `.kra` files.
@@ -22,7 +25,7 @@ impl AssetLoader for KritaDocumentLoader {
         &'a self,
         reader: &'a mut Reader,
         _settings: &'a Self::Settings,
-        _load_context: &'a mut LoadContext,
+        load_context: &'a mut LoadContext,
     ) -> bevy_asset::BoxedFuture<'a, Result<Self::Asset, Self::Error>> {
         Box::pin(async move {
             // TODO: Improve error handling
@@ -42,6 +45,9 @@ impl AssetLoader for KritaDocumentLoader {
             merged_image.read_to_end(&mut image_bytes)?;
 
             Ok(Image::from_buffer(
+                // TODO: Only add name if bevy "dds" feature is enabled
+                #[cfg(all(debug_assertions, feature = "dds"))]
+                load_context.path().display().to_string(),
                 &image_bytes,
                 ImageType::Extension("png"),
                 // TODO: Check what to put here
@@ -49,6 +55,8 @@ impl AssetLoader for KritaDocumentLoader {
                 // TODO: Check if it's srgb
                 true,
                 ImageSampler::Default,
+                // TODO: Make this configurable
+                RenderAssetUsages::default(),
             )?)
         })
     }

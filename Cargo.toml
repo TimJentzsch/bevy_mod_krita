@@ -17,18 +17,21 @@ exclude = ["assets/**/*", ".github/**/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+dds = ["bevy/dds"]
+
 [dependencies]
 anyhow = "1.0.69"
-bevy_render = { version = "0.12", default-features = false }
-bevy_app = { version = "0.12", default-features = false }
-bevy_asset = { version = "0.12", default-features = false }
-bevy_ecs = { version = "0.12", default-features = false }
+bevy_render = { version = "0.13", default-features = false }
+bevy_app = { version = "0.13", default-features = false }
+bevy_asset = { version = "0.13", default-features = false }
+bevy_ecs = { version = "0.13", default-features = false }
 image = { version = "0.24", default-features = false }
 thiserror = "1.0.38"
 zip = { version = "0.6.4", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
-bevy = { version = "0.12", default-features = false, features = [
+bevy = { version = "0.13", default-features = false, features = [
   "bevy_asset",
   "bevy_core_pipeline",
   "bevy_pbr",

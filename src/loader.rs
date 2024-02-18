@@ -45,7 +45,6 @@ impl AssetLoader for KritaDocumentLoader {
             merged_image.read_to_end(&mut image_bytes)?;
 
             Ok(Image::from_buffer(
-                // TODO: Only add name if bevy "dds" feature is enabled
                 #[cfg(all(debug_assertions, feature = "dds"))]
                 load_context.path().display().to_string(),
                 &image_bytes,

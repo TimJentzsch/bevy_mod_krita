@@ -23,7 +23,7 @@ fn setup(
     // cube
     commands.spawn((
         PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+            mesh: meshes.add(Cuboid::new(1.0, 1.0, 1.0)),
             material: materials.add(StandardMaterial {
                 base_color_texture: Some(assert_server.load("krita/demo.kra")),
                 ..default()

@@ -38,9 +38,10 @@ bevy = { version = "0.13", default-features = false, features = [
   "bevy_render",
   "bevy_sprite",
   "bevy_winit",
+  "file_watcher",
   "multi-threaded",
   "png",
-  "file_watcher",
+  "tonemapping_luts",
   "x11",
 ] }
 

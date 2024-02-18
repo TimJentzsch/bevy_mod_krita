@@ -25,7 +25,7 @@ impl AssetLoader for KritaDocumentLoader {
         &'a self,
         reader: &'a mut Reader,
         _settings: &'a Self::Settings,
-        load_context: &'a mut LoadContext,
+        #[allow(unused_variables)] load_context: &'a mut LoadContext,
     ) -> bevy_asset::BoxedFuture<'a, Result<Self::Asset, Self::Error>> {
         Box::pin(async move {
             // TODO: Improve error handling

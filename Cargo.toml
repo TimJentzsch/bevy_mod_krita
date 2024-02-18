@@ -38,6 +38,7 @@ bevy = { version = "0.13", default-features = false, features = [
   "bevy_render",
   "bevy_sprite",
   "bevy_winit",
+  "multi-threaded",
   "png",
   "file_watcher",
   "x11",

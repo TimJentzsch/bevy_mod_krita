@@ -8,7 +8,8 @@ Please keep in mind that `.kra` files are not optimized for size, so you should 
 
 | `bevy` version | `bevy_mod_krita` version |
 | -------------- | ------------------------ |
-| `0.12`         | `0.3.0`                   |
+| `0.13`         | `0.4.0`                  |
+| `0.12`         | `0.3.0`                  |
 | `0.11`         | `0.2.0`                  |
 | `0.10`         | `0.1.0`                  |
 

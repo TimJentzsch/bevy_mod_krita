@@ -21,43 +21,43 @@ impl AssetLoader for KritaDocumentLoader {
         &["kra"]
     }
 
-    fn load<'a>(
+    async fn load<'a>(
         &'a self,
-        reader: &'a mut Reader,
+        reader: &'a mut Reader<'_>,
         _settings: &'a Self::Settings,
-        #[allow(unused_variables)] load_context: &'a mut LoadContext,
-    ) -> bevy_asset::BoxedFuture<'a, Result<Self::Asset, Self::Error>> {
-        Box::pin(async move {
-            // TODO: Improve error handling
+        // Make clippy happy by adding the underscore when it's not used
+        #[cfg(not(all(debug_assertions, feature = "dds")))] _load_context: &'a mut LoadContext<'_>,
+        #[cfg(all(debug_assertions, feature = "dds"))] load_context: &'a mut LoadContext<'_>,
+    ) -> Result<Self::Asset, Self::Error> {
+        // TODO: Improve error handling
 
-            let mut bytes = Vec::new();
-            reader.read_to_end(&mut bytes).await?;
+        let mut bytes = Vec::new();
+        reader.read_to_end(&mut bytes).await?;
 
-            // `.kra` files are basically just `.zip` files, try to read the ZIP archive
-            let reader = Cursor::new(bytes);
-            let mut archive = ZipArchive::new(reader)?;
+        // `.kra` files are basically just `.zip` files, try to read the ZIP archive
+        let reader = Cursor::new(bytes);
+        let mut archive = ZipArchive::new(reader)?;
 
-            // `.kra` files contain a file `mergedimage.png` which contains the rendered image
-            // See <https://docs.krita.org/en/general_concepts/file_formats/file_kra.html>
-            let mut merged_image = archive.by_name("mergedimage.png")?;
+        // `.kra` files contain a file `mergedimage.png` which contains the rendered image
+        // See <https://docs.krita.org/en/general_concepts/file_formats/file_kra.html>
+        let mut merged_image = archive.by_name("mergedimage.png")?;
 
-            let mut image_bytes = Vec::<u8>::new();
-            merged_image.read_to_end(&mut image_bytes)?;
+        let mut image_bytes = Vec::<u8>::new();
+        merged_image.read_to_end(&mut image_bytes)?;
 
-            Ok(Image::from_buffer(
-                #[cfg(all(debug_assertions, feature = "dds"))]
-                load_context.path().display().to_string(),
-                &image_bytes,
-                ImageType::Extension("png"),
-                // TODO: Check what to put here
-                CompressedImageFormats::all(),
-                // TODO: Check if it's srgb
-                true,
-                ImageSampler::Default,
-                // TODO: Make this configurable
-                RenderAssetUsages::default(),
-            )?)
-        })
+        Ok(Image::from_buffer(
+            #[cfg(all(debug_assertions, feature = "dds"))]
+            load_context.path().display().to_string(),
+            &image_bytes,
+            ImageType::Extension("png"),
+            // TODO: Check what to put here
+            CompressedImageFormats::all(),
+            // TODO: Check if it's srgb
+            true,
+            ImageSampler::Default,
+            // TODO: Make this configurable
+            RenderAssetUsages::default(),
+        )?)
     }
 }
 

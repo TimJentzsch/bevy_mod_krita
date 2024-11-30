@@ -16,14 +16,14 @@ jobs:
   cargo-clippy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          components: rustfmt, clippy
-          override: true
+          components: clippy
       - name: Cache Cargo build files
-        uses: Leafwing-Studios/cargo-cache@v1
+        uses: Leafwing-Studios/cargo-cache@v2
+        with:
+          sweep-cache: true
       - name: Install alsa and udev
         run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
       - name: Run cargo clippy
@@ -32,13 +32,13 @@ jobs:
   cargo-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+      - uses: actions/checkout@v4
+      # Install Rust and Cargo
+      - uses: dtolnay/rust-toolchain@stable
       - name: Cache Cargo build files
-        uses: Leafwing-Studios/cargo-cache@v1
+        uses: Leafwing-Studios/cargo-cache@v2
+        with:
+          sweep-cache: true
       - name: Install alsa and udev
         run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
       - name: Run cargo test
@@ -47,12 +47,13 @@ jobs:
   cargo-doc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+      - uses: actions/checkout@v4
+      # Install Rust and Cargo
+      - uses: dtolnay/rust-toolchain@stable
       - name: Cache Cargo build files
-        uses: Leafwing-Studios/cargo-cache@v1
+        uses: Leafwing-Studios/cargo-cache@v2
+        with:
+          sweep-cache: true
       - name: Install alsa and udev
         run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
         if: runner.os == 'linux'

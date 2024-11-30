@@ -38,6 +38,8 @@ bevy = { version = "0.12", default-features = false, features = [
   "png",
   "file_watcher",
   "x11",
+  "basis-universal",
+  "embedded_watcher",
 ] }
 
 [profile.dev]

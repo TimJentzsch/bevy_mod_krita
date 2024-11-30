@@ -1,2 +1,5 @@
 /target
 /Cargo.lock
+
+# Asset pre-processing
+imported_assets
